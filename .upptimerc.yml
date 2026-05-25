@@ -1,11 +1,11 @@
-owner: OpenClaw-rocks
+owner: paperclipinc
 repo: status
 
 sites:
-  - name: OpenClaw.rocks
-    url: https://openclaw.rocks
+  - name: paperclip.inc
+    url: https://paperclip.inc
   - name: Health API
-    url: https://openclaw.rocks/api/health
+    url: https://paperclip.inc/api/health
 
 i18n:
   allSystemsOperational: All systems operational
@@ -15,24 +15,23 @@ i18n:
   footer: "This page is [open source]($REPO), powered by [Upptime](https://upptime.js.org)"
 
 status-website:
-  cname: status.openclaw.rocks
-  logoUrl: https://openclaw.rocks/favicon.svg
-  favicon: https://openclaw.rocks/favicon.ico
-  faviconSvg: https://openclaw.rocks/favicon.svg
-  name: OpenClaw Status
-  theme: night
-  introTitle: "**[OpenClaw.rocks](https://openclaw.rocks)** system status"
+  cname: status.paperclip.inc
+  logoUrl: https://paperclip.inc/favicon.svg
+  favicon: https://paperclip.inc/favicon.ico
+  faviconSvg: https://paperclip.inc/favicon.svg
+  name: Paperclip.inc Status
+  introTitle: "**[paperclip.inc](https://paperclip.inc)** system status"
   introMessage: Real-time uptime data powered by [Upptime](https://github.com/upptime/upptime). Monitored every 5 minutes via GitHub Actions.
   navbar:
     - title: Status
       href: /
-    - title: OpenClaw.rocks
-      href: https://openclaw.rocks
+    - title: paperclip.inc
+      href: https://paperclip.inc
     - title: GitHub
       href: https://github.com/$OWNER/$REPO
   metaTags:
     - name: theme-color
-      content: "#050810"
+      content: "#f7f7f4"
   links:
     - rel: preconnect
       href: https://fonts.googleapis.com
@@ -40,116 +39,79 @@ status-website:
       href: https://fonts.gstatic.com
     - rel: stylesheet
       href: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
-  js: |
-    document.addEventListener('DOMContentLoaded', function() {
-      new MutationObserver(function() {
-        document.querySelectorAll('article').forEach(function(el) {
-          for (var i = 0; i < el.childNodes.length; i++) {
-            var n = el.childNodes[i];
-            if (n.nodeType === 3) {
-              var clean = n.textContent.replace(/[^\x20-\x7E]/g, '').trim();
-              if (clean !== n.textContent.trim()) n.textContent = ' ' + clean + ' ';
-            }
-          }
-        });
-      }).observe(document.body, { childList: true, subtree: true });
-    });
   css: |
-    /* === OpenClaw.rocks Brand Override === */
-    /* Override ALL Upptime night theme variables */
+    /* paperclip.inc brand override — light theme */
     :root {
-      --body-background-color: #0a0a0b !important;
-      --body-text-color: #fafafa !important;
-      --card-background-color: rgba(20, 20, 22, 0.9) !important;
-      --card-border-color: rgba(255, 255, 255, 0.08) !important;
-      --nav-background-color: rgba(20, 20, 22, 0.9) !important;
-      --nav-border-bottom-color: rgba(248, 113, 113, 0.1) !important;
-      --nav-current-border-bottom-color: #f87171 !important;
-      --down-border-left-color: #ef4444 !important;
-      --down-background-color: rgba(239, 68, 68, 0.1) !important;
-      --down-color-color: #fafafa !important;
-      --degraded-border-left-color: #eab308 !important;
-      --degraded-color-color: #fafafa !important;
-      --up-border-left-color: #22c55e !important;
-      --up-color-color: #fafafa !important;
-      --tag-color: #fff !important;
-      --tag-up-background-color: #22c55e !important;
-      --tag-down-background-color: #ef4444 !important;
-      --tag-degraded-background-color: #eab308 !important;
-      --change-background-color: rgba(234, 179, 8, 0.15) !important;
-      --code-color: #f87171 !important;
-      --code-background-color: rgba(255, 255, 255, 0.05) !important;
-      --error-button-border-color: rgba(248, 113, 113, 0.4) !important;
+      --body-background-color: #f7f7f4 !important;
+      --body-text-color: #26251e !important;
+      --card-background-color: #fafaf7 !important;
+      --card-border-color: rgba(38, 37, 30, 0.08) !important;
+      --nav-background-color: rgba(247, 247, 244, 0.85) !important;
+      --nav-border-bottom-color: rgba(38, 37, 30, 0.08) !important;
+      --nav-current-border-bottom-color: #26251e !important;
+      --down-border-left-color: #b91c1c !important;
+      --down-background-color: rgba(185, 28, 28, 0.06) !important;
+      --down-color-color: #26251e !important;
+      --degraded-border-left-color: #a16207 !important;
+      --degraded-color-color: #26251e !important;
+      --up-border-left-color: #166534 !important;
+      --up-color-color: #26251e !important;
+      --tag-color: #f7f7f4 !important;
+      --tag-up-background-color: #166534 !important;
+      --tag-down-background-color: #b91c1c !important;
+      --tag-degraded-background-color: #a16207 !important;
+      --change-background-color: rgba(161, 98, 7, 0.1) !important;
+      --code-color: #26251e !important;
+      --code-background-color: rgba(38, 37, 30, 0.05) !important;
+      --error-button-border-color: rgba(38, 37, 30, 0.2) !important;
       --error-button-background-color: transparent !important;
-      --error-button-color: #f87171 !important;
-      --submit-button-background-color: #f87171 !important;
-      --submit-button-color: #fff !important;
-      --submit-button-border-color: #f87171 !important;
+      --error-button-color: #26251e !important;
+      --submit-button-background-color: #26251e !important;
+      --submit-button-color: #f7f7f4 !important;
+      --submit-button-border-color: #26251e !important;
       --graph-opacity: 1 !important;
-      --graph-filter: sepia(1) hue-rotate(330deg) saturate(2.5) brightness(1.1) !important;
     }
 
-    /* Font: Inter, matching BRAND.md */
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-      background: #0a0a0b !important;
-      color: #fafafa !important;
+      background: #f7f7f4 !important;
+      color: #26251e !important;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Headings */
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-      color: #fafafa !important;
+      color: #26251e !important;
       letter-spacing: -0.01em;
     }
 
-    h3 {
-      opacity: 1 !important;
-      color: #a1a1aa !important;
-    }
+    h3 { opacity: 1 !important; color: #6b6a64 !important; }
 
-    /* Links: coral accent */
     a {
-      color: #f87171 !important;
-      text-decoration: none;
-      transition: color 0.15s ease;
+      color: #26251e !important;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: rgba(38, 37, 30, 0.3);
+      transition: text-decoration-color 0.15s ease;
     }
-    a:hover {
-      color: #fca5a5 !important;
-    }
+    a:hover { text-decoration-color: #26251e !important; }
 
-    /* Navbar: sticky glassmorphism matching main site */
     nav {
       position: sticky !important;
       top: 0 !important;
       z-index: 100 !important;
-      background: rgba(10, 10, 11, 0.8) !important;
+      background: rgba(247, 247, 244, 0.85) !important;
       backdrop-filter: blur(20px) !important;
       -webkit-backdrop-filter: blur(20px) !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-bottom: 1px solid rgba(38, 37, 30, 0.08) !important;
       padding: 0 !important;
     }
-    nav .container {
-      padding-top: 0.75rem !important;
-      padding-bottom: 0.75rem !important;
-    }
-    nav a {
-      color: #a1a1aa !important;
-      transition: color 0.15s ease;
-      text-decoration: none !important;
-    }
-    nav a:hover {
-      color: #fafafa !important;
-    }
-    nav .logo div {
-      color: #fafafa !important;
-      font-weight: 600 !important;
-      font-size: 0.95rem !important;
-    }
+    nav .container { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+    nav a { color: #6b6a64 !important; transition: color 0.15s ease; text-decoration: none !important; }
+    nav a:hover { color: #26251e !important; }
+    nav .logo div { color: #26251e !important; font-weight: 600 !important; font-size: 0.95rem !important; }
 
-    /* Nav links: animated underline from center (matching main site) */
     nav ul a {
       position: relative !important;
       padding-bottom: 2px !important;
@@ -163,126 +125,64 @@ status-website:
       left: 0 !important;
       width: 100% !important;
       height: 2px !important;
-      background: #f87171 !important;
+      background: #26251e !important;
       transform: scaleX(0) !important;
       transform-origin: center !important;
       transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
-    nav ul a:hover::after {
-      transform: scaleX(1) !important;
-    }
-    [aria-current] {
-      color: #fafafa !important;
-      border-bottom: none !important;
-    }
-    [aria-current]::after {
-      transform: scaleX(1) !important;
-    }
+    nav ul a:hover::after { transform: scaleX(1) !important; }
+    [aria-current] { color: #26251e !important; border-bottom: none !important; }
+    [aria-current]::after { transform: scaleX(1) !important; }
 
-    /* Cards: glassmorphism with subtle borders */
     article {
-      background: rgba(20, 20, 22, 0.9) !important;
-      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      background: #fafaf7 !important;
+      border: 1px solid rgba(38, 37, 30, 0.08) !important;
       border-radius: 12px !important;
-      backdrop-filter: blur(20px) !important;
-      -webkit-backdrop-filter: blur(20px) !important;
     }
-    article.up {
-      border-left: 3px solid #22c55e !important;
-    }
-    article.down {
-      border-left: 3px solid #ef4444 !important;
-    }
-    article.degraded {
-      border-left: 3px solid #eab308 !important;
-    }
+    article.up { border-left: 3px solid #166534 !important; }
+    article.down { border-left: 3px solid #b91c1c !important; }
+    article.degraded { border-left: 3px solid #a16207 !important; }
     article.down-active {
-      background: rgba(239, 68, 68, 0.08) !important;
-      border-color: rgba(239, 68, 68, 0.3) !important;
+      background: rgba(185, 28, 28, 0.06) !important;
+      border-color: rgba(185, 28, 28, 0.3) !important;
     }
-    article + article {
-      margin-top: 0.75rem !important;
-    }
+    article + article { margin-top: 0.75rem !important; }
 
-    /* Status tags: pill-shaped */
     .tag {
       border-radius: 9999px !important;
       font-size: 0.75rem !important;
       font-weight: 600 !important;
       padding: 0.25rem 0.75rem !important;
-      color: #fff !important;
+      color: #f7f7f4 !important;
     }
 
-    /* Footer */
     footer {
-      color: #71717a !important;
-      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+      color: #6b6a64 !important;
+      border-top: 1px solid rgba(38, 37, 30, 0.08) !important;
     }
-    footer a {
-      color: #a1a1aa !important;
-    }
-    footer a:hover {
-      color: #f87171 !important;
-    }
+    footer a { color: #6b6a64 !important; }
+    footer a:hover { color: #26251e !important; }
 
-    /* Time range selector */
-    form label {
-      color: #a1a1aa !important;
-      font-size: 0.875rem !important;
-    }
-    input[type="radio"]:checked + label {
-      color: #f87171 !important;
-    }
+    form label { color: #6b6a64 !important; font-size: 0.875rem !important; }
+    input[type="radio"]:checked + label { color: #26251e !important; }
 
-    /* Lead paragraph */
-    .lead {
-      color: #a1a1aa !important;
-    }
+    .lead { color: #6b6a64 !important; }
+    .changed h2 { color: #26251e !important; }
+    .changed + section .data { background: rgba(161, 98, 7, 0.1) !important; }
+    .loading svg { stroke: #6b6a64 !important; }
 
-    /* Live status section header */
-    .changed h2 {
-      color: #fafafa !important;
-    }
-    .changed + section .data {
-      background: rgba(234, 179, 8, 0.1) !important;
-    }
+    .container { max-width: 800px !important; }
 
-    /* Loading spinner */
-    .loading svg {
-      stroke: #71717a !important;
-    }
-
-    /* Container: match brand max-width */
-    .container {
-      max-width: 800px !important;
-    }
-
-    /* Submit/error buttons */
     .submit-button {
-      background: linear-gradient(135deg, #f87171 0%, #dc2626 100%) !important;
-      color: #fff !important;
+      background: #26251e !important;
+      color: #f7f7f4 !important;
       border: none !important;
       border-radius: 8px !important;
       font-weight: 600 !important;
     }
     a.error-button {
-      border-color: rgba(248, 113, 113, 0.4) !important;
+      border-color: rgba(38, 37, 30, 0.2) !important;
       background: transparent !important;
-      color: #f87171 !important;
+      color: #26251e !important;
       border-radius: 8px !important;
-    }
-
-    /* Logo hover: scale + red glow (BRAND.md) */
-    nav .logo {
-      transition: transform 0.2s ease, filter 0.2s ease;
-    }
-    nav .logo:hover {
-      transform: scale(1.06);
-      filter: drop-shadow(0 0 8px rgba(248, 113, 113, 0.4));
-    }
-    nav .logo img {
-      transition: filter 0.2s ease;
-    }
-    nav .logo:hover img {
-      filter: drop-shadow(0 0 6px rgba(248, 113, 113, 0.3));
     }
