@@ -42,6 +42,9 @@ status-website:
       content: Real-time status for paperclip.inc.
   js: |
     (function () {
+      document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
+        m.setAttribute('content', '#f7f7f4');
+      });
       fetch('/api/summary.json')
         .then(function (r) { return r.json(); })
         .then(function (d) {
