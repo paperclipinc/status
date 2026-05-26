@@ -2,17 +2,23 @@ owner: paperclipinc
 repo: status
 
 sites:
-  - name: paperclip.inc
-    url: https://paperclip.inc
+  - name: Marketing site
+    url: https://paperclip.inc/
+  - name: Docs
+    url: https://paperclip.inc/docs
+  - name: Auth
+    url: https://paperclip.inc/auth/sign-in
   - name: Health API
     url: https://paperclip.inc/api/health
 
 i18n:
   allSystemsOperational: All systems operational
+  partialOutage: Some systems are degraded
+  completeOutage: One service is down
   activeIncidents: Active incidents
-  pastIncidents: Past incidents
-  pastScheduledMaintenance: Past scheduled maintenance
-  footer: "This page is [open source]($REPO), powered by [Upptime](https://upptime.js.org)"
+  pastIncidents: Recent incidents
+  pastScheduledMaintenance: Past maintenance
+  footer: This page is [open source]($REPO), powered by [Upptime](https://upptime.js.org).
 
 status-website:
   cname: status.paperclip.inc
@@ -20,8 +26,8 @@ status-website:
   favicon: https://paperclip.inc/favicon.ico
   faviconSvg: https://paperclip.inc/favicon.svg
   name: Paperclip.inc Status
-  introTitle: "**[paperclip.inc](https://paperclip.inc)** system status"
-  introMessage: Real-time uptime data powered by [Upptime](https://github.com/upptime/upptime). Monitored every 5 minutes via GitHub Actions.
+  introTitle: All systems operational
+  introMessage: Real-time status for [paperclip.inc](https://paperclip.inc).
   navbar:
     - title: Status
       href: /
@@ -32,157 +38,245 @@ status-website:
   metaTags:
     - name: theme-color
       content: "#f7f7f4"
-  links:
-    - rel: preconnect
-      href: https://fonts.googleapis.com
-    - rel: preconnect
-      href: https://fonts.gstatic.com
-    - rel: stylesheet
-      href: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+    - name: description
+      content: Real-time status for paperclip.inc.
+  js: |
+    (function () {
+      fetch('/api/summary.json')
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (!d || !d.lastUpdate) return;
+          var last = new Date(d.lastUpdate);
+          var mins = Math.max(0, Math.round((Date.now() - last.getTime()) / 60000));
+          var text = mins < 1
+            ? 'Updated just now'
+            : mins === 1
+              ? 'Updated 1 minute ago'
+              : 'Updated ' + mins + ' minutes ago';
+          var h1 = document.querySelector('main h1, .intro h1, h1');
+          if (!h1) return;
+          var sub = document.createElement('p');
+          sub.className = 'paperclip-last-update';
+          sub.textContent = text;
+          h1.parentNode.insertBefore(sub, h1.nextSibling);
+        })
+        .catch(function () {});
+    })();
   css: |
-    /* paperclip.inc brand override — light theme */
+    /* paperclip.inc status page — editorial monochrome, per DESIGN.md */
+
     :root {
-      --body-background-color: #f7f7f4 !important;
-      --body-text-color: #26251e !important;
-      --card-background-color: #fafaf7 !important;
-      --card-border-color: rgba(38, 37, 30, 0.08) !important;
-      --nav-background-color: rgba(247, 247, 244, 0.85) !important;
-      --nav-border-bottom-color: rgba(38, 37, 30, 0.08) !important;
-      --nav-current-border-bottom-color: #26251e !important;
-      --down-border-left-color: #b91c1c !important;
-      --down-background-color: rgba(185, 28, 28, 0.06) !important;
-      --down-color-color: #26251e !important;
-      --degraded-border-left-color: #a16207 !important;
-      --degraded-color-color: #26251e !important;
-      --up-border-left-color: #166534 !important;
-      --up-color-color: #26251e !important;
-      --tag-color: #f7f7f4 !important;
-      --tag-up-background-color: #166534 !important;
-      --tag-down-background-color: #b91c1c !important;
-      --tag-degraded-background-color: #a16207 !important;
-      --change-background-color: rgba(161, 98, 7, 0.1) !important;
-      --code-color: #26251e !important;
-      --code-background-color: rgba(38, 37, 30, 0.05) !important;
+      --color-canvas: #f7f7f4;
+      --color-ink: #26251e;
+      --color-body: #5a5852;
+      --color-muted: #807d72;
+      --color-hairline: #e6e5e0;
+      --color-hairline-soft: #efeee8;
+      --color-success: #1f8a65;
+      --color-warning: #c08532;
+      --color-error: #cf2d56;
+
+      --body-background-color: var(--color-canvas) !important;
+      --body-text-color: var(--color-ink) !important;
+      --card-background-color: transparent !important;
+      --card-border-color: transparent !important;
+      --nav-background-color: var(--color-canvas) !important;
+      --nav-border-bottom-color: var(--color-hairline) !important;
+      --nav-current-border-bottom-color: var(--color-ink) !important;
+      --down-border-left-color: var(--color-error) !important;
+      --down-background-color: transparent !important;
+      --down-color-color: var(--color-ink) !important;
+      --degraded-border-left-color: var(--color-warning) !important;
+      --degraded-color-color: var(--color-ink) !important;
+      --up-border-left-color: var(--color-success) !important;
+      --up-color-color: var(--color-ink) !important;
+      --tag-color: var(--color-muted) !important;
+      --tag-up-background-color: transparent !important;
+      --tag-down-background-color: transparent !important;
+      --tag-degraded-background-color: transparent !important;
+      --code-color: var(--color-ink) !important;
+      --code-background-color: transparent !important;
       --error-button-border-color: rgba(38, 37, 30, 0.2) !important;
       --error-button-background-color: transparent !important;
-      --error-button-color: #26251e !important;
-      --submit-button-background-color: #26251e !important;
-      --submit-button-color: #f7f7f4 !important;
-      --submit-button-border-color: #26251e !important;
-      --graph-opacity: 1 !important;
+      --error-button-color: var(--color-ink) !important;
+      --submit-button-background-color: var(--color-ink) !important;
+      --submit-button-color: var(--color-canvas) !important;
+      --submit-button-border-color: var(--color-ink) !important;
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-      background: #f7f7f4 !important;
-      color: #26251e !important;
+      font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+      background: var(--color-canvas) !important;
+      color: var(--color-ink) !important;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
     h1, h2, h3, h4, h5, h6 {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-      color: #26251e !important;
+      font-family: inherit !important;
+      color: var(--color-ink) !important;
+      font-weight: 400;
       letter-spacing: -0.01em;
     }
 
-    h3 { opacity: 1 !important; color: #6b6a64 !important; }
+    /* Hero h1 — display-lg */
+    main h1, .intro h1 {
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.72px;
+      margin: 0 0 8px;
+    }
+
+    /* "Recent incidents" — display-md */
+    main h2, .changed h2 {
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -0.325px;
+      margin: 80px 0 24px;
+    }
+
+    /* Row title — title-md */
+    article h3 {
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0 !important;
+      color: var(--color-ink) !important;
+      opacity: 1 !important;
+      margin: 0 0 4px !important;
+    }
+
+    /* "Updated N minutes ago" sub */
+    .paperclip-last-update {
+      font-size: 16px;
+      color: var(--color-muted);
+      margin: 0 0 64px;
+    }
+
+    .lead, .lead p {
+      color: var(--color-muted) !important;
+      font-size: 16px !important;
+      font-weight: 400 !important;
+    }
 
     a {
-      color: #26251e !important;
+      color: var(--color-ink) !important;
       text-decoration: underline;
-      text-underline-offset: 2px;
       text-decoration-color: rgba(38, 37, 30, 0.3);
+      text-underline-offset: 2px;
       transition: text-decoration-color 0.15s ease;
     }
-    a:hover { text-decoration-color: #26251e !important; }
+    a:hover {
+      text-decoration-color: var(--color-ink) !important;
+    }
 
+    /* Nav: flat canvas, hairline baseline, no glassmorphism */
     nav {
       position: sticky !important;
       top: 0 !important;
       z-index: 100 !important;
-      background: rgba(247, 247, 244, 0.85) !important;
-      backdrop-filter: blur(20px) !important;
-      -webkit-backdrop-filter: blur(20px) !important;
-      border-bottom: 1px solid rgba(38, 37, 30, 0.08) !important;
+      background: var(--color-canvas) !important;
+      border-bottom: 1px solid var(--color-hairline) !important;
       padding: 0 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
-    nav .container { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
-    nav a { color: #6b6a64 !important; transition: color 0.15s ease; text-decoration: none !important; }
-    nav a:hover { color: #26251e !important; }
-    nav .logo div { color: #26251e !important; font-weight: 600 !important; font-size: 0.95rem !important; }
-
-    nav ul a {
-      position: relative !important;
-      padding-bottom: 2px !important;
-      font-size: 0.875rem !important;
+    nav .container {
+      padding-top: 18px !important;
+      padding-bottom: 18px !important;
+    }
+    nav a {
+      color: var(--color-muted) !important;
+      text-decoration: none !important;
+      font-size: 14px !important;
       font-weight: 500 !important;
     }
-    nav ul a::after {
-      content: '' !important;
-      position: absolute !important;
-      bottom: -2px !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 2px !important;
-      background: #26251e !important;
-      transform: scaleX(0) !important;
-      transform-origin: center !important;
-      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    nav a:hover { color: var(--color-ink) !important; }
+    nav .logo div {
+      color: var(--color-ink) !important;
+      font-weight: 600 !important;
+      font-size: 16px !important;
     }
-    nav ul a:hover::after { transform: scaleX(1) !important; }
-    [aria-current] { color: #26251e !important; border-bottom: none !important; }
-    [aria-current]::after { transform: scaleX(1) !important; }
+    [aria-current] {
+      color: var(--color-ink) !important;
+      border-bottom: none !important;
+    }
 
+    /* 720px max, generous gutters */
+    .container {
+      max-width: 720px !important;
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+    }
+
+    /* Hero top breathing room */
+    main > section:first-of-type,
+    .intro {
+      padding-top: 80px !important;
+    }
+
+    /* Service rows: flat editorial, dot at left */
     article {
-      background: #fafaf7 !important;
-      border: 1px solid rgba(38, 37, 30, 0.08) !important;
-      border-radius: 12px !important;
-    }
-    article.up { border-left: 3px solid #166534 !important; }
-    article.down { border-left: 3px solid #b91c1c !important; }
-    article.degraded { border-left: 3px solid #a16207 !important; }
-    article.down-active {
-      background: rgba(185, 28, 28, 0.06) !important;
-      border-color: rgba(185, 28, 28, 0.3) !important;
-    }
-    article + article { margin-top: 0.75rem !important; }
-
-    .tag {
-      border-radius: 9999px !important;
-      font-size: 0.75rem !important;
-      font-weight: 600 !important;
-      padding: 0.25rem 0.75rem !important;
-      color: #f7f7f4 !important;
-    }
-
-    footer {
-      color: #6b6a64 !important;
-      border-top: 1px solid rgba(38, 37, 30, 0.08) !important;
-    }
-    footer a { color: #6b6a64 !important; }
-    footer a:hover { color: #26251e !important; }
-
-    form label { color: #6b6a64 !important; font-size: 0.875rem !important; }
-    input[type="radio"]:checked + label { color: #26251e !important; }
-
-    .lead { color: #6b6a64 !important; }
-    .changed h2 { color: #26251e !important; }
-    .changed + section .data { background: rgba(161, 98, 7, 0.1) !important; }
-    .loading svg { stroke: #6b6a64 !important; }
-
-    .container { max-width: 800px !important; }
-
-    .submit-button {
-      background: #26251e !important;
-      color: #f7f7f4 !important;
-      border: none !important;
-      border-radius: 8px !important;
-      font-weight: 600 !important;
-    }
-    a.error-button {
-      border-color: rgba(38, 37, 30, 0.2) !important;
       background: transparent !important;
-      color: #26251e !important;
-      border-radius: 8px !important;
+      border: 0 !important;
+      border-bottom: 1px solid var(--color-hairline-soft) !important;
+      border-radius: 0 !important;
+      padding: 20px 0 20px 20px !important;
+      margin: 0 !important;
+      position: relative !important;
     }
+    article + article { margin-top: 0 !important; }
+
+    /* The 6px status dot (only color on the page) */
+    article::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 28px;
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      background: var(--color-success);
+    }
+    article.up::before       { background: var(--color-success); }
+    article.degraded::before { background: var(--color-warning); }
+    article.down::before     { background: var(--color-error); }
+
+    article.down-active {
+      background: rgba(207, 45, 86, 0.04) !important;
+      border-color: rgba(207, 45, 86, 0.2) !important;
+    }
+
+    /* Status word at right — caption-uppercase but lowercased */
+    .tag {
+      background: transparent !important;
+      color: var(--color-muted) !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.88px !important;
+      text-transform: lowercase !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+    }
+
+    /* Time-range form labels (Upptime shows day/week/month/year switcher) */
+    form label {
+      color: var(--color-muted) !important;
+      font-size: 14px !important;
+    }
+    input[type="radio"]:checked + label { color: var(--color-ink) !important; }
+
+    /* Footer — body-sm muted, hairline top */
+    footer {
+      color: var(--color-muted) !important;
+      border-top: 1px solid var(--color-hairline) !important;
+      font-size: 14px !important;
+      padding: 32px 0 !important;
+      margin-top: 80px !important;
+    }
+    footer a { color: var(--color-muted) !important; }
+    footer a:hover { color: var(--color-ink) !important; }
+
+    /* Loading spinner — muted, calm */
+    .loading svg { stroke: var(--color-muted) !important; }
