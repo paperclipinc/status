@@ -9,7 +9,7 @@ sites:
   - name: Auth
     url: https://paperclip.inc/auth/sign-in
   - name: Health API
-    url: https://paperclip.inc/api/health
+    url: https://paperclip.inc/api/healthz
 
 i18n:
   allSystemsOperational: All systems operational
