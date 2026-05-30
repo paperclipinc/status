@@ -26,13 +26,15 @@ status-website:
   favicon: https://paperclip.inc/favicon.ico
   faviconSvg: https://paperclip.inc/favicon.svg
   name: Paperclip.inc Status
-  introTitle: All systems operational
+  introTitle: Paperclip.inc status
   introMessage: Real-time status for [paperclip.inc](https://paperclip.inc).
   navbar:
     - title: Status
       href: /
     - title: paperclip.inc
       href: https://paperclip.inc
+    - title: Subscribe
+      href: https://github.com/$OWNER/$REPO/issues
     - title: GitHub
       href: https://github.com/$OWNER/$REPO
   metaTags:
