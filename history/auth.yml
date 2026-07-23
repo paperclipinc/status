@@ -1,7 +1,7 @@
 url: https://paperclip.inc/auth/sign-in
-status: down
-code: 429
-responseTime: 302
-lastUpdated: 2026-07-23T16:17:00.390Z
+status: up
+code: 200
+responseTime: 574
+lastUpdated: 2026-07-23T17:46:28.877Z
 startTime: 2026-05-26T10:12:34.547Z
 generator: Upptime <https://github.com/upptime/upptime>
